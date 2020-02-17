@@ -1,3 +1,19 @@
+// This simple script allows popout some YouTube stream chat's information
+// (messages + donates + members)
+
+// Warning: This simple script was written in a nutshell(in a hurry) so it needs some corretions(meaning it might have bugs).
+// (i.e. do not update the whole window, but only added info via events or such etc.)
+// Works as of 20:42:05 10.02.2020
+
+// Currently, this just opens two windows with chat's info and updates each 3 seconds
+
+// How to:
+// While viewing a stream on YouTube
+//   1. Open a console with "Top" scope
+//   2. Run JQUERY + CHAT
+//   3. Run MEMBERS
+//      * Run 2. and 3. separately because of 1 window per execute(there might be a workaround)
+
 // JQUERY //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var script = document.createElement('script');
