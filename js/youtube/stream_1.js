@@ -1,19 +1,3 @@
-// This simple script allows popout some YouTube stream chat's information
-// (messages + donates + members)
-
-// Warning: This simple script was written in a nutshell(in a hurry) so it needs some corretions(meaning it might have bugs).
-// (i.e. do not update the whole window, but only added info via events or such etc.)
-// Works as of 20:42:05 10.02.2020
-
-// Currently, this just opens two windows with chat's info and updates each 3 seconds
-
-// How to:
-// While viewing a stream on YouTube
-//   1. Open a console with "Top" scope
-//   2. Run JQUERY + CHAT
-//   3. Run MEMBERS
-//      * Run 2. and 3. separately because of 1 window per execute(there might be a workaround)
-
 // JQUERY //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var script = document.createElement('script');
@@ -39,13 +23,17 @@ span { white-space: pre; } \
 function updateWindow_1() {
     window_1.messages_1.innerHTML = '';
     $("iframe").contents().find("yt-live-chat-text-message-renderer").each(function(i,e) {
-    	number_1 = ("0000" + i).slice(-4);
+        number_1 = ("0000" + i).slice(-4);
         timestamp_1 = $(this).find("#timestamp").html();
         author_1 = $(this).find("#author-name").contents().filter(function(){ 
             return this.nodeType == 3;
         })[0].nodeValue;
+        if ($(e).find("#author-name").hasClass('member'))
+            author_1_c = '#cf40d1';
+        else
+            author_1_c = '#fff';
         message_1 = $(this).find("#message").html();
-        window_1.messages_1.innerHTML = window_1.messages_1.innerHTML + '[' + number_1 + ', ' + timestamp_1 + ']: [<b style="color: #fff;">' + author_1 + '</b>]: [' + message_1 + ']<br>';
+        window_1.messages_1.innerHTML = window_1.messages_1.innerHTML + '[' + number_1 + ', ' + timestamp_1 + ']: [<b style="color: ' + author_1_c + ';">' + author_1 + '</b>]: [' + message_1 + ']<br>';
     });
     window_1.scrollTo(0, 999999);
     date_o_1 = new Date();
@@ -55,11 +43,11 @@ function updateWindow_1() {
 }
 
 var window_1 = window.open('','window_1','width=800,height=600');
-	window_1.onload = function() {
-	window_1.document.open();
-	window_1.document.write(html_1);
-	updateWindow_1;
-	window_1.timeout_1 = setTimeout(updateWindow_1, 3000);
+    window_1.onload = function() {
+    window_1.document.open();
+    window_1.document.write(html_1);
+    updateWindow_1;
+    window_1.timeout_1 = setTimeout(updateWindow_1, 3000);
 }; 1;
 
 // MEMBERS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
