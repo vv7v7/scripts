@@ -22,6 +22,11 @@ document.getElementsByTagName('head')[0].appendChild(script);
 
 // CHAT ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Colors
+var c1 = '#fff',    // Default
+    c2 = '#33aa33', // Member
+    c3 = '#776eff'; // Moderator
+
 var html_1 = '<html>\
 <head>\
 <title>Messages [YouTube Stream]</title>\
@@ -45,9 +50,11 @@ function updateWindow_1() {
             return this.nodeType == 3;
         })[0].nodeValue;
         if ($(e).find("#author-name").hasClass('member'))
-            author_1_c = '#cf40d1';
+            author_1_c = c2;
+        else if ($(e).find("#author-name").hasClass('moderator'))
+            author_1_c = c3;
         else
-            author_1_c = '#fff';
+            author_1_c = c1;
         message_1 = $(this).find("#message").html();
         window_1.messages_1.innerHTML = window_1.messages_1.innerHTML + '[' + number_1 + ', ' + timestamp_1 + ']: [<b style="color: ' + author_1_c + ';">' + author_1 + '</b>]: [' + message_1 + ']<br>';
     });
