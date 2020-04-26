@@ -34,6 +34,12 @@ var html_1 = '<html>\
 html { background: #111; color: #888; font-family: "Courier New", Courier, monospace; font-size: 14px; }\
 img { height: 16px; width: 16px; }\
 span { white-space: pre; } \
+img.author_ava { float: left; height: 16px; width: 16px; margin-top: 0px; border-radius: 3px; }\
+div.message-area { display: inline; float: left; clear: both; }\
+span.number { float: left; }\
+span.author_name { float: left; }\
+span.author_message { float: left; display: inline-block; }\
+span.author_message * { white-space: nowrap; }\
 </style>\
 </head>\
 <body>\
@@ -43,9 +49,12 @@ span { white-space: pre; } \
 
 function updateWindow_1() {
     window_1.messages_1.innerHTML = '';
-    $("iframe").contents().find("yt-live-chat-text-message-renderer").each(function(i,e) {
+    messages_all = $("iframe").contents().find("yt-live-chat-text-message-renderer").slice(-50); // Get last 50 elements from chat
+    messages_all.each(function(i,e) { // Loop through each elements
         number_1 = ("0000" + i).slice(-4);
+
         timestamp_1 = $(this).find("#timestamp").html();
+
         author_1 = $(this).find("#author-name").contents().filter(function(){ 
             return this.nodeType == 3;
         })[0].nodeValue;
@@ -55,8 +64,18 @@ function updateWindow_1() {
             author_1_c = c3;
         else
             author_1_c = c1;
+
+        console.log($(this).find("#author-photo img")[0]);
+        avatar_1 = $(this).find("#author-photo img")[0].src;
+
         message_1 = $(this).find("#message").html();
-        window_1.messages_1.innerHTML = window_1.messages_1.innerHTML + '[' + number_1 + ', ' + timestamp_1 + ']: [<b style="color: ' + author_1_c + ';">' + author_1 + '</b>]: [' + message_1 + ']<br>';
+        window_1.messages_1.innerHTML = window_1.messages_1.innerHTML +
+        '<div class="message-area">' +
+            '<span class="number">[' + number_1 + ', ' + timestamp_1 + ']: </span>' +
+            '<img class="author_ava" src="' + avatar_1  + '"/>' +
+            '<span class="author_name">[<b style="color: ' + author_1_c + ';">' + author_1 + '</b>]: </span>' +
+            '<span class="author_message">[' + message_1 + ']</span>' +
+        '</div><br>';
     });
     window_1.scrollTo(0, 999999);
     date_o_1 = new Date();
