@@ -52,9 +52,7 @@ function updateWindow_1() {
     messages_all = $("iframe").contents().find("yt-live-chat-text-message-renderer").slice(-50); // Get last 50 elements from chat
     messages_all.each(function(i,e) { // Loop through each elements
         number_1 = ("0000" + i).slice(-4);
-
         timestamp_1 = $(this).find("#timestamp").html();
-
         author_1 = $(this).find("#author-name").contents().filter(function(){ 
             return this.nodeType == 3;
         })[0].nodeValue;
@@ -64,10 +62,7 @@ function updateWindow_1() {
             author_1_c = c3;
         else
             author_1_c = c1;
-
-        console.log($(this).find("#author-photo img")[0]);
         avatar_1 = $(this).find("#author-photo img")[0].src;
-
         message_1 = $(this).find("#message").html();
         window_1.messages_1.innerHTML = window_1.messages_1.innerHTML +
         '<div class="message-area">' +
